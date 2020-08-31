@@ -27,8 +27,8 @@ services:
     depends_on:
       - db
     volumes:
-      - ./data:/var/www/html/web/data
-      - ./export:/var/www/html/export
+      - /data/music:/var/www/html/web/data
+      - /data/music_export:/var/www/html/export
     environment:
       - MYSQL_HOST=db:3306
       - MYSQL_PASSWORD_FILE=/run/secrets/secret_mysql_password
