@@ -1,0 +1,44 @@
+version: '3.2'
+
+volumes:
+  db:
+
+services:
+  db:
+    image: mariadb:10.4
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    restart: unless-stopped
+    volumes:
+      - db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/secret_mysql_root_password
+      - MYSQL_PASSWORD_FILE=/run/secrets/secret_mysql_password
+      - MYSQL_DATABASE=mms
+      - MYSQL_USER=mms
+    secrets:
+      - secret_mysql_root_password
+      - secret_mysql_password
+
+  app:
+    build: .
+    ports:
+      - 8080:80
+    restart: unless-stopped
+    depends_on:
+      - db
+    volumes:
+      - ./data:/var/www/html/web/data
+      - ./export:/var/www/html/export
+    environment:
+      - MYSQL_HOST=db:3306
+      - MYSQL_PASSWORD_FILE=/run/secrets/secret_mysql_password
+      - MYSQL_DATABASE=mms
+      - MYSQL_USER=mms
+    secrets:
+      - secret_mysql_password
+    
+secrets:
+  secret_mysql_root_password:
+    file: ./secret_mysql_root_password.txt
+  secret_mysql_password:
+    file: ./secret_mysql_password.txt
