@@ -251,6 +251,7 @@ class AdminController extends \yii\web\Controller
 
 		if(!file_exists($pathDestination)) {
 			mkdir($pathDestination);
+			chmod($pathDestination, 0777);
 		}
 		
 		for($i=0; $i<count($songs)-75; $i++) {
