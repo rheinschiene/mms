@@ -16,6 +16,5 @@ sudo docker exec -i mms_db_1 mysql -u mms -p${MYSQL_PASSWORD} mms < <dumpfile>.s
 
 ```
 # MariaDB Backup
-MYSQL_ROOT_PASSWORD=$(?????cat secret_mysql_root_password.txt)
-19 17 * * * podman exec feedreader_db_1 mysqldump -u root -p${MYSQL_ROOT_PASSWORD} feedreader > ???/home/user1/podman/feedreader/mariadb_backup/dump.`date '+\%u'`.sql
+42 18 * * * /<path-to-directory>/cron_backup.sh
 ```
