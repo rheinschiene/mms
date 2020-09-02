@@ -1,6 +1,10 @@
 # credential file
 secret*
 
+# data and export path
+/data
+/export
+
 # phpstorm project files
 .idea
 
