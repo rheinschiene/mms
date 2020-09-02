@@ -255,7 +255,7 @@ class AdminController extends \yii\web\Controller
 		
 		for($i=0; $i<count($songs)-75; $i++) {
 			echo $i . " - " . $songs[$i]->filename . " - " . $songs[$i]->last_played . "<br>";
-			if(copy($pathRoot . $songs[$i]->path . "/" . $songs[$i]->filename, $pathDestination . "/" . $i . "_" . $songs[$i]->filename)) {
+			if(copy($pathRoot . "web/" . $songs[$i]->path . "/" . $songs[$i]->filename, $pathDestination . "/" . $i . "_" . $songs[$i]->filename)) {
 				$songs[$i]->last_played = date('Y-m-d G:i:s');
 				$songs[$i]->save();
 			}
